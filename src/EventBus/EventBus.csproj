@@ -2,6 +2,20 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>AlexeyFrank</Authors>
+    <Company />
+    <Description>Base abstractions for simple lightweight .NET Event Bus Library</Description>
+    <PackageLicenseUrl>https://github.com/FrankAlexey/EventBus/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/FrankAlexey/EventBus/tree/master/src/EventBus</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/FrankAlexey/EventBus</RepositoryUrl>
+    <PackageTags>EventBus;lightweight;.NET</PackageTags>
+    <PackageIconUrl>https://raw.githubusercontent.com/FrankAlexey/EventBus/master/logo.png</PackageIconUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageId>Light.EventBus</PackageId>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
+    <Version>1.0.1</Version>
+    <Product>Light.EventBus</Product>
   </PropertyGroup>
 
   <ItemGroup>

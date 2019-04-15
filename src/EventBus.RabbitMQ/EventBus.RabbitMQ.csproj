@@ -4,13 +4,15 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Light.EventBus.RabbitMQ</PackageId>
     <PackageReleaseNotes>RabitMQ;EventBus;lightweight;.NET</PackageReleaseNotes>
-    <PackageTags>git</PackageTags>
+    <PackageTags>EventBus;lightweight;.NET</PackageTags>
     <Authors>AlexeyFrank</Authors>
     <Product>Light.EventBus.RabbitMQ</Product>
     <Description>Simple RabbitMQ implementation for lightweight .NET Event Bus Library</Description>
     <PackageLicenseUrl>https://github.com/FrankAlexey/EventBus/blob/master/LICENSE</PackageLicenseUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/FrankAlexey/EventBus/master/logo.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/FrankAlexey/EventBus</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/FrankAlexey/EventBus/tree/master/src/EventBus.RabbitMQ</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
