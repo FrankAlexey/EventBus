@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>Light.EventBus.RabbitMQ</PackageId>
+    <PackageReleaseNotes>RabitMQ;EventBus;lightweight;.NET</PackageReleaseNotes>
+    <PackageTags>git</PackageTags>
+    <Authors>AlexeyFrank</Authors>
+    <Product>Light.EventBus.RabbitMQ</Product>
+    <Description>Simple RabbitMQ implementation for lightweight .NET Event Bus Library</Description>
+    <PackageLicenseUrl>https://github.com/FrankAlexey/EventBus/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/FrankAlexey/EventBus/master/logo.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/FrankAlexey/EventBus</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.9.2" />
+    <PackageReference Include="Light.EventBus" Version="1.0.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
+    <PackageReference Include="Polly" Version="7.1.0" />
+    <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
+  </ItemGroup>
+
+</Project>
