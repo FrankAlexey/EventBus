@@ -30,13 +30,13 @@ namespace EventBus.RabbitMQ
         private string _queueName;
 
         public EventBusRabbitMq(IPersistentConnection persistentConnection, ILogger<EventBusRabbitMq> logger,
-            ILifetimeScope autofac, ISubscriptionsManager subsManager, string queueName = null, string exchangeName = null, int retryCount = 5)
+            ILifetimeScope autofac, ISubscriptionsManager subsManager, string queueName = null, string exchangeName = Defaults.EXCHANGE_NAME, int retryCount = Defaults.RETRY_COUNT)
         {
             _persistentConnection = persistentConnection ?? throw new ArgumentNullException(nameof(persistentConnection));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _subsManager = subsManager ?? new InMemorySubscriptionsManager();
             _queueName = queueName;
-            _exchangeName = exchangeName ?? "event_bus_exchange";
+            _exchangeName = exchangeName;
             _consumerChannel = CreateConsumerChannel();
             _autofac = autofac;
             _retryCount = retryCount;
