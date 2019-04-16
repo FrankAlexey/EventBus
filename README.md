@@ -1,37 +1,95 @@
-## Welcome to GitHub Pages
+# Light EventBus 
 
-You can use the [editor on GitHub](https://github.com/FrankAlexey/EventBus/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Light EventBus is a simple lightweight .NET Core library that allows developers to use:
+* easy in-memory event-dispatching
+* publishing events to RabbitMQ
+* consume events via event handlers
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## NuGet packages
 
-### Markdown
+- [Light.EventBus](https://www.nuget.org/packages/Light.EventBus/)
+- [Light.EventBus.RabbitMQ](https://www.nuget.org/packages/Light.EventBus.RabbitMQ/)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Installing via NuGet
 
-```markdown
-Syntax highlighted code block
+You can install base abstractions library to use [InMemorySubscriptionManager](https://github.com/FrankAlexey/EventBus/blob/master/src/EventBus/InMemorySubscriptionsManager.cs)
 
-# Header 1
-## Header 2
-### Header 3
+    Install-Package Light.EventBus
+    
+Or install RabbitMQ-based implementation of Event Bus
+    
+    Install-Package Light.EventBus.RabbitMQ
+    
+## Quick start:
 
-- Bulleted
-- List
+### RabbitMQ-based implementation of Event Bus in ASP.NET Core project
 
-1. Numbered
-2. List
+1. Install [Light.EventBus.RabbitMQ](https://www.nuget.org/packages/Light.EventBus.RabbitMQ/) NuGet in your application
 
-**Bold** and _Italic_ and `Code` text
+2. Configure and register event bus using Dependency Injection
 
-[Link](url) and ![Image](src)
+```csharp
+   public IServiceProvider ConfigureServices(IServiceCollection services)
+   {
+        ...
+        services.AddEventBusRabbitMQ(() =>
+        {
+            var rabbitSection = Configuration.GetSection("RabbitMQ");
+
+            return new RabbitMQOptions()
+            {
+                UserName = rabbitSection["UserName"],
+                Password = rabbitSection["Password"],
+                HostName = rabbitSection["HostName"],
+                Port = Int32.Parse(rabbitSection["Port"]),
+                QueueName = rabbitSection["QueueName"],
+                ExchangeName = rabbitSection["ExchangeName"],
+                RetryCount = rabbitSection["RetryCount"]
+            };
+        });
+        ...
+   }
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+3. Create an event class
 
-### Jekyll Themes
+```csharp
+    public class MyIntegrationEvent : IntegrationEvent
+    {      
+      //Properties
+    }  
+```
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/FrankAlexey/EventBus/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+4. Use [IEventBus](https://github.com/FrankAlexey/EventBus/blob/master/src/EventBus/Abstractions/IEventBus.cs) for publishing events
+```csharp
+    var eventBus = serviceProvider.GetRequiredService<IEventBus>();
+    eventBus.Publish(new MyIntegrationEvent());
+```
 
-### Support or Contact
+5. For consuming events create an event handler class
+```csharp
+    public class MyIntegrationEventHandler : IIntegrationEventHandler<MyIntegrationEvent>
+    {
+        private readonly Dependency _anyDependency;
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+        public MyIntegrationEventHandler(Dependency anyDependency)
+        {
+            ...
+        }
+
+        public async Task Handle(MyIntegrationEvent @event)
+        {
+            //Process your event
+            await Task.CompletedTask;            
+        }
+    }
+```
+
+6. Subscribe your event handler via [IEventBus](https://github.com/FrankAlexey/EventBus/blob/master/src/EventBus/Abstractions/IEventBus.cs)
+
+```csharp
+    var eventBus = serviceProvider.GetRequiredService<IEventBus>();
+    eventBus.Subscribe<MyIntegrationEvent, MyIntegrationEventHandler>();
+```
+
+Any contributions or comments are welcome!
